@@ -5,6 +5,12 @@ setlocal softtabstop=2
 setlocal expandtab
 setlocal formatoptions=tcqr
 
+
+set makeprg=sbt\ compile
+set efm=%E\ %#[error]\ %f:%l:\ %m,%C\ %#[error]\ %p^,%-C%.%#,%Z,
+       \%W\ %#[warn]\ %f:%l:\ %m,%C\ %#[warn]\ %p^,%-C%.%#,%Z,
+       \%-G%.%#
+
 "
 " FuzzyFinder stuff
 "
@@ -114,3 +120,39 @@ endfunction
 nnoremap <buffer> <silent> ,ft :FufFile <c-r>=scala#GetTestDirForFuzzyFinder('%:p:h')<cr><cr>
 nnoremap <buffer> <silent> ,fs :FufFile <c-r>=scala#GetMainDirForFuzzyFinder('%:p:h')<cr><cr>
 nnoremap <buffer> <silent> ,fr :FufFile <c-r>=scala#GetRootDirForFuzzyFinder('%:p:h')<cr><cr>
+
+"
+" TagBar
+"
+let g:tagbar_type_scala = {
+    \ 'ctagstype' : 'scala',
+    \ 'kinds'     : [
+      \ 'p:packages:1',
+      \ 'V:values',
+      \ 'v:variables',
+      \ 'T:types',
+      \ 't:traits',
+      \ 'o:objects',
+      \ 'a:aclasses',
+      \ 'c:classes',
+      \ 'r:cclasses',
+      \ 'm:methods'
+    \ ],
+    \ 'sro'        : '.',
+    \ 'kind2scope' : {
+        \ 'T' : 'type',
+        \ 't' : 'trait',
+        \ 'o' : 'object',
+        \ 'a' : 'abstract class',
+        \ 'c' : 'class',
+        \ 'r' : 'case class'
+    \ },
+    \ 'scope2kind' : {
+      \ 'type' : 'T',
+      \ 'trait' : 't',
+      \ 'object' : 'o',
+      \ 'abstract class' : 'a',
+      \ 'class' : 'c',
+      \ 'case class' : 'r'
+    \ }
+\ }
